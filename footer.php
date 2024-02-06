@@ -1,24 +1,27 @@
-<!-- Contenu du pied de page, par exemple des liens, des scripts, etc. -->
 
-    <script src="main.js"></script>
-</body>
-</html>
 
 <!-- Footer -->
-<footer class="bg-dark text-center text-white" id="footer">
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-        © 2022 Copyright:
-        <a class="text-white" href="https://github.com/VillerotJustin">Villerot Justin</a>
-    </div>
+<footer class="d-flex align-items-center justify-content-end" id="footer">
+    <div class="container d-flex align-items-center">
+        <p style="color: white;" class="container d-flex">
+            Le contenu de ce site est soumis à la licence&nbsp
+            <a href="LICENSE" target="_blank">
+                CC0 1.0 Universal
+            </a>
+        </p>
 
+
+        <div class="container d-flex justify-content-end all_links">
+            <a href="About.html" target="_blank"> À propos </a>
+
+            <a href="Contact.html" target="_blank"> Contact </a>
+
+            <a href="https://github.com/VillerotJustinOrg/Easing-Website" target="_blank"> Find the project </a>
+
+        </div>
+    </div>
 </footer>
 <script src="main.js"></script>
-
-<!-- Footer -->
-<footer class="text-center text-white">
-
-</footer>
-</div>
 
 </body>
 </html>

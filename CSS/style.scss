@@ -9,11 +9,25 @@ p{margin:0}
 body{position:relative;overflow-x:hidden}
 
 header{
-    width:100%;background-color:#6300FF;height:55px;
-    a{color:white;}
-    .all_links{
-        a{margin-left:30px}
-    }
+  width:100%;background-color:#6300FF;
+  height:55px;
+  a{color:white;}
+  a{text-decoration: none}
+  .all_links{
+    a{margin-left:30px}
+  }
+}
+
+footer{
+  width:100%;
+  font-size: smaller;
+  background-color:#6300FF;
+  height:55px;
+  p{a:hover{color: whitesmoke;}}
+  a{color:white;}
+  .all_links{
+    a{margin-left:30px}
+  }
 }
 
 .owl-carousel{position:relative;

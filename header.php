@@ -41,25 +41,24 @@ $template_url = "."
     <title>Easing</title>
     <!-- Autres balises meta, liens CSS, etc. peuvent être ajoutés ici -->
 </head>
-<body class="overflow-none" ">
+<body class=""> <!--overflow-none-->
 <!-- \<\?php if(get_the_ID()==27){ ?> onload="initialize()" <\?php }else{ ?> onload="initializeLogement() <\?php } ?> -->
 <header class="d-flex align-items-center justify-content-end">
 
     <div class="container d-flex align-items-center">
-        
         <a href="index.php" >
         <img src="img/easing.svg" >
         </a>
 
-        <div class="container d-flex justify-content-end all_links"> 
-            
-            <a href="#"> Témoignages </a>
-
-            <a href="#"> À propos </a>
-
-            <a href="#"> Contact </a>
-
-        </div>
+<!--        <div class="container d-flex justify-content-end all_links"> -->
+<!--            -->
+<!--            <a href="#"> Témoignages </a>-->
+<!---->
+<!--            <a href="#"> À propos </a>-->
+<!---->
+<!--            <a href="#"> Contact </a>-->
+<!---->
+<!--        </div>-->
 
     </div>
 
