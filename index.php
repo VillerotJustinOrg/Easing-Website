@@ -87,6 +87,7 @@ $tags = $TagDAO->getAllTags();
 
                 ?>
                 <form class="card_logement" target="_blank" action="single-logement.php" method="post" id="<?php print_r($logement_id) ?>">
+                    <input type="hidden" name="ID_Logement" value="<?php echo $logement_id ?>">
                     <div class="owl-carousel carousel-logement owl-theme">
                         <?php foreach($images as $photo){ ?>
                             <img src="img/IMG_Logement/<?php echo $photo['Label']  ?>">
@@ -95,7 +96,7 @@ $tags = $TagDAO->getAllTags();
                     <div class="informations" >
                         <p class="ville"><?php echo $logement['Adresse'] ?>, France </p>
                         <p><?php echo $logement['Nom'] ?> </p>
-                        <p><?php echo $logement['statut'] ?> </p>
+                        <p><?php echo $logement['Category_Label']." - ".$logement['Type_Label']  ?> </p>
                         <p><?php echo strftime("%e %b", strtotime($available_after)) ?></p>
                         <p class="prix"><span class="bold"> <?php echo $logement['Prix'] ?> </span> € par nuit </p>
 <!--    Don't work so useless   <div class="coeur" > </div>-->

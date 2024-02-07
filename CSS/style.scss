@@ -27,6 +27,7 @@ footer{
   a{color:white;}
   .all_links{
     a{margin-left:30px}
+    a:hover{color: whitesmoke}
   }
 }
 
@@ -55,34 +56,39 @@ footer{
 }
 
 .card_logement{
-    width:24%;display:block;text-decoration:none !important;margin-bottom:20px;margin-top:20px;
-    .ville{
-        font-weight:700;
+  width:24%;
+  display:block;
+  text-decoration:none !important;
+  margin-bottom:20px;
+  margin-top:20px;
+  min-height: 225px;
+  .ville{
+    font-weight:700;
+  }
+  .prix{margin-top:10px}
+  .coeur{
+    transition: all 0.3s ease-in-out;width:21px;position:absolute;right:20px;bottom:20px;height:20px;background-size:contain;background-position: center center;background-repeat:no-repeat;background-image: url("../img/coeur.svg");
+    &.rouge{background-image: url("../img/coeur-rouge.svg") !important;}
+  }
+  .informations{transition: all 0.3s ease-in-out;background-color:#251B38;position:relative;padding:20px;border-radius:25px;margin-top:15px;color:white}
+
+  &:hover{
+    .carousel-logement{box-shadow: 3px 2px 8px 1px rgba(0, 0, 0, 0.3);
+      .owl-nav {display:flex !important;}
     }
-    .prix{margin-top:10px}
-    .coeur{
-        transition: all 0.3s ease-in-out;width:21px;position:absolute;right:20px;bottom:20px;height:20px;background-size:contain;background-position: center center;background-repeat:no-repeat;background-image: url("../img/coeur.svg");
-        &.rouge{background-image: url("../img/coeur-rouge.svg") !important;}
-    }
-    .informations{transition: all 0.3s ease-in-out;background-color:#251B38;position:relative;padding:20px;border-radius:25px;margin-top:15px;color:white}
-   
-    &:hover{
-        .carousel-logement{box-shadow: 3px 2px 8px 1px rgba(0, 0, 0, 0.3);
-                .owl-nav {display:flex !important;}
-        }
-        .informations{box-shadow: 3px 2px 8px 1px rgba(0, 0, 0, 0.3);}
-    }
+    .informations{box-shadow: 3px 2px 8px 1px rgba(0, 0, 0, 0.3);}
+  }
 }
 
 .liste-logements{
-    width:60%;max-height:100%;overflow-y:scroll; flex-flow:row wrap;gap:2%;padding-right:25px;padding-left:25px;padding-bottom:25px;
+  width:60%;max-height:100%;overflow-y:scroll; flex-flow:row wrap;gap:2%;padding-right:25px;padding-left:25px;padding-bottom:25px;
 }
 
 .marker-map{transition: all 0.2s ease-in-out;}
 
 .carousel-logement{
-    border-radius:25px;overflow:hidden;transition: all 0.3s ease-in-out;
-    img{height:260px;object-fit:cover}
+  border-radius:25px;overflow:hidden;transition: all 0.3s ease-in-out;
+  img{height:260px;object-fit:cover}
 }
 
 .leaflet-popup-content{
@@ -126,12 +132,6 @@ footer{
     h2{margin-bottom:25px;margin-top:25px}
     .line{width:100%;height:1px;background-color:black;margin-top:30px}
     .grand_line{height:1px;background-color:black;width:100%;margin-top:30px}
-    .wrapper {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-gap: 10px;
-        grid-auto-rows: minmax(100px, auto);
-      }
       .case-1 {
         grid-column: 1 / 4;
         grid-row: 1/3;
@@ -215,4 +215,44 @@ footer{
   width: 100%;
 
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+// Carousel
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body { font-family: sans-serif; }
+
+.gallery {
+  background: #EEE;
+}
+
+.gallery-cell {
+  width: 66%;
+  height: 200px;
+  margin-right: 10px;
+  background: #8C8;
+  counter-increment: gallery-cell;
+}
+
+/* cell number */
+.gallery-cell:before {
+  display: block;
+  text-align: center;
+  content: counter(gallery-cell);
+  line-height: 200px;
+  font-size: 80px;
+  color: white;
+}
+
+#map-log{
+  width:100%; height:400px;margin-top:60px;margin-bottom:90px
+}
+
+.justify-text{
+  text-align: justify;
+  text-justify: auto;
 }

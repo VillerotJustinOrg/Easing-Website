@@ -65,7 +65,21 @@ class LogementDAO {
             INNER JOIN Type t ON l.ID_Type = t.ID_Type";
         $result = $this->conn->query($sql);
         return $result->fetch_all(MYSQLI_ASSOC);
-        // TODO neo4j
+    }
+
+    function getLogementCompleteByID($id): array
+    {
+        $sql = "SELECT l.*, p.Nom AS Proprietaire_Nom, p.Prenom AS Proprietaire_Prenom, c.Label AS Category_Label, t.Label AS Type_Label 
+            FROM Logement l
+            INNER JOIN Proprietaire p ON l.ID_Proprietaire = p.ID_Proprietaire 
+            INNER JOIN Category c ON l.ID_Category = c.ID_Category 
+            INNER JOIN Type t ON l.ID_Type = t.ID_Type
+            WHERE l.ID_Logement = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
     }
 
     function nextDisponibility($logementId)

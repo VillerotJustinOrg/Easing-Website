@@ -16,6 +16,16 @@ class LocationDAO {
         // TODO neo4j
     }
 
+    function getAllLocationsOfLogement($id) {
+
+        $sql = "SELECT * FROM Location WHERE ID_Logement = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all();
+    }
+
     function getLocationById($id) {
         $sql = "SELECT * FROM Location WHERE ID_Location = ?";
         $stmt = $this->conn->prepare($sql);
