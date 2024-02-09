@@ -45,7 +45,6 @@ $logements = $_SESSION['result'] ?? $LogementDAO->getAllLogementsComplete();
     }
 
 </script>
-    <!-- TODO Value if reloaded -->
 <main class="container">
     <form class="accueil_form d-flex flex-column" action="logement_filter_treatment.php" method="post" style="margin-bottom:50px;margin-top:30px;">
         <div class="d-flex align-items-end justify-content-center flex-row">
@@ -89,7 +88,6 @@ $logements = $_SESSION['result'] ?? $LogementDAO->getAllLogementsComplete();
                             <input id="<?php echo $i ?>" name="tags[]" value="<?php echo $tag['ID_Tag'] ?>" type="checkbox">
                         </div>
                     <?php $i+=1;  } ?>
-                    </div>
                 </div>
             </div>
         </div>
@@ -172,7 +170,7 @@ $logements = $_SESSION['result'] ?? $LogementDAO->getAllLogementsComplete();
                     <input type="hidden" name="ID_Logement" value="<?php echo $logement_id ?>">
                     <div class="owl-carousel carousel-logement owl-theme">
                         <?php foreach($images as $photo){ ?>
-                            <img src="img/IMG_Logement/<?php echo $photo['Label']  ?>">
+                            <img src="img/IMG_Logement/<?php echo $photo['Label'] ?>" alt="<?php echo $photo['Label']?>">
                         <?php } ?>
                     </div>
                     <div class="informations" >
