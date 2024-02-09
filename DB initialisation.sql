@@ -68,6 +68,14 @@ CREATE TABLE Location(
    FOREIGN KEY(ID_Logement) REFERENCES Logement(ID_Logement)
 );
 
+CREATE TABLE Visite(
+    ID_Visite INT AUTO_INCREMENT PRIMARY KEY,
+    Label VARCHAR(50),
+    ID_Logement INT NOT NULL,
+    UNIQUE(ID_Logement),
+    FOREIGN KEY(ID_Logement) REFERENCES Logement(ID_Logement)
+);
+
 CREATE TABLE appartiend(
    ID_Adaptation INT,
    ID_Tag INT,

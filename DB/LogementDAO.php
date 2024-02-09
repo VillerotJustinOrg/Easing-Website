@@ -104,33 +104,146 @@ class LogementDAO {
         return $latestEnd;
     }
 
-    private function is_between($start, $end, $time)
+    function SimpleFilter($destination, $debut, $fin, $nbrPlace, $tags): array
     {
-        $first_diff = date_diff($start, $time)->format('%R');
-        $second_diff = date_diff($time, $end)->format('%R');
-        if ($first_diff == '+' and $second_diff == '+'){
-            return true;
+        $sql="SELECT
+                    l.*,
+                    p.Nom AS Proprietaire_Nom,
+                    p.Prenom AS Proprietaire_Prenom,
+                    c.Label AS Category_Label,
+                    t.Label AS Type_Label 
+            FROM Logement l
+                INNER JOIN Proprietaire p ON l.ID_Proprietaire = p.ID_Proprietaire
+                INNER JOIN Category c ON l.ID_Category = c.ID_Category
+                INNER JOIN Type t ON l.ID_Type = t.ID_Type
+                WHERE l.ID_Logement IN (
+                SELECT DISTINCT l.ID_Logement
+                FROM Logement l 
+                INNER JOIN Proprietaire p ON l.ID_Proprietaire = p.ID_Proprietaire 
+                INNER JOIN Category c ON l.ID_Category = c.ID_Category 
+                INNER JOIN Type t ON l.ID_Type = t.ID_Type 
+                LEFT JOIN Location loc ON l.ID_Logement = loc.ID_Logement 
+                                          AND loc.Debut <= ? AND loc.Fin >= ? 
+                LEFT JOIN Adaptations a ON l.ID_Logement = a.ID_Logement 
+                LEFT JOIN appartiend ap ON a.ID_Adaptation = ap.ID_Adaptation
+                WHERE 
+                    loc.ID_Logement IS NULL AND
+                    l.Adresse LIKE ? AND
+                    l.Nombre_Max >= ?";
+
+        $destination = "%".$destination."%";
+        $list = [$debut, $fin, $destination , intval($nbrPlace)];
+
+
+        if ($tags == null){
+            echo "HAHA";
+            $sql.=");";
+            $types = "sssi";
+        } else {
+            echo "tags<br>";
+            $sql.=" AND ap.ID_Tag IN (";
+            for ($i = 1; $i <= count($tags); $i++){
+                $sql .= "?";
+                if ($i < count($tags)){
+                    $sql .= ", ";
+                }
+            }
+            $sql.="));";
+            foreach ($tags as $tag) {$list[] = intval($tag);}
+            $types = "sssi".str_repeat('s', count($tags));
+            echo "tags done<br>";
         }
-        return false;
+
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bind_param($types,...$list);
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all();
     }
 
-    private function is_before($start, $end, $time)
-    {
-        $first_diff = date_diff($start, $time)->format('%R');
-        $second_diff = date_diff($time, $end)->format('%R');
-        if ($first_diff == '+' and $second_diff == '-'){
-            return true;
-        }
-        return false;
-    }
 
-    private function is_after($start, $end, $time)
+
+    function Filter($destination, $debut, $fin, $nbrPlace, $tags, $visite, $type, $category, $price_min, $price_max): array
     {
-        $first_diff = date_diff($start, $time)->format('%R');
-        $second_diff = date_diff($time, $end)->format('%R');
-        if ($first_diff == '-' and $second_diff == '+'){
-            return true;
+        $sql="SELECT
+                    l.*,
+                    p.Nom AS Proprietaire_Nom,
+                    p.Prenom AS Proprietaire_Prenom,
+                    c.Label AS Category_Label,
+                    t.Label AS Type_Label 
+            FROM Logement l
+                INNER JOIN Proprietaire p ON l.ID_Proprietaire = p.ID_Proprietaire
+                INNER JOIN Category c ON l.ID_Category = c.ID_Category
+                INNER JOIN Type t ON l.ID_Type = t.ID_Type
+                WHERE l.ID_Logement IN (
+                SELECT DISTINCT l.ID_Logement
+                FROM Logement l 
+                INNER JOIN Proprietaire p ON l.ID_Proprietaire = p.ID_Proprietaire 
+                INNER JOIN Category c ON l.ID_Category = c.ID_Category 
+                INNER JOIN Type t ON l.ID_Type = t.ID_Type 
+                LEFT JOIN Location loc ON l.ID_Logement = loc.ID_Logement 
+                                          AND loc.Debut <= ? AND loc.Fin >= ? 
+                LEFT JOIN Adaptations a ON l.ID_Logement = a.ID_Logement 
+                LEFT JOIN appartiend ap ON a.ID_Adaptation = ap.ID_Adaptation
+                LEFT JOIN Visite v ON l.ID_Logement = v.ID_Logement
+                WHERE 
+                    loc.ID_Logement IS NULL AND
+                    l.Adresse LIKE ? AND
+                    l.Nombre_Max >= ?";
+
+        $destination = "%".$destination."%";
+        $list = [$debut, $fin, $destination , intval($nbrPlace)];
+        $types = "sssi";
+
+        if ($tags != null) {
+            $sql .= " AND ap.ID_Tag IN (";
+            for ($i = 1; $i <= count($tags); $i++) {
+                $sql .= "?";
+                if ($i < count($tags)) {
+                    $sql .= ", ";
+                }
+            }
+            $sql .= ")";
+            foreach ($tags as $tag) {
+                $list[] = intval($tag);
+            }
+            $types = "sssi" . str_repeat('s', count($tags));
+            echo "tags done<br>";
         }
-        return false;
+
+        if ($visite == "on"){
+            $sql.= " AND v.ID_Visite IS NOT NULL ";
+        }
+
+        if ($type != null){
+            $sql.= " AND t.ID_Type = ? ";
+            $list[] = $type;
+            $types.= "i";
+        }
+
+        if ($category != null){
+            $sql.= " AND c.ID_Category = ? ";
+            $list[] = $category;
+            $types.= "i";
+        }
+
+        if ($price_min != null and $price_max != null){
+            $sql.= " AND (l.Prix BETWEEN ? AND ?)";
+            $list[] = $price_min;
+            $list[] = $price_max;
+            $types.= "ii";
+        }
+
+        $sql.=");";
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bind_param($types,...$list);
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all();
     }
 }

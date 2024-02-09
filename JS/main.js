@@ -243,111 +243,67 @@ $('.search_form').submit(function (e) {
     });
 });
 
-//
-// /* Date formulaire */
-//
-// var startDateInput = $('#debut');
-// var endDateInput = $('#fin');
-//
-// // Ajoutez un gestionnaire d'événements pour la date de début
-// var debutInput = $('#debut');
-// var finInput = $('#fin');
-//
-// // Fonction pour mettre à jour la date minimale pour le champ de date de fin
-// function updateMinDate() {
-//   // Obtenez la date de début sélectionnée
-//   var debutValue = debutInput.val();
-//
-//   // Vérifiez si la date de début est définie
-//   if (debutValue) {
-//     // Convertissez la date de début en objet Date
-//     var dateDebut = new Date(debutValue);
-//
-//     // Ajoutez un jour à la date de début
-//     dateDebut.setDate(dateDebut.getDate() + 1);
-//
-//     // Formattez la date pour l'attribut min
-//     var minDateFin = formatDate(dateDebut);
-//
-//     // Mettez à jour la date minimale pour le champ de date de fin
-//     finInput.attr('min', minDateFin);
-//   }
-// }
-//
-// // Attachez l'événement change au champ de date de début
-// debutInput.on('change', updateMinDate);
-//
-// updateMinDate();
-//
-//
-// // Attachez l'événement change au champ de date de début
-// debutInput.on('change', updateMinDate);
-//
-// /*finInput.on('change', function() {
-//       // Mettez à jour la date maximale pour la date de début en fonction de la date de fin sélectionnée
-//       debutInput.attr('max', finInput.val());
-//     });*/
-//
-// // Fonction pour formater la date au format "YYYY-MM-DD"
-// function formatDate(date) {
-//   var year = date.getFullYear();
-//   var month = ('0' + (date.getMonth() + 1)).slice(-2);
-//   var day = ('0' + date.getDate()).slice(-2);
-//   return year + '-' + month + '-' + day;
-// }
-//
-// /* Coeur rouge */
-//
-// $('.coeur').click(function (event) {
-//   // Empêcher la propagation de l'événement de clic vers les parents
-//   event.preventDefault();
-//
-//   // Ajouter ici le code pour basculer la classe "rouge" sur la div .coeur
-//   $(this).toggleClass('rouge');
-// });
+
+/* Date formulaire */
+
+var startDateInput = $('#debut');
+var endDateInput = $('#fin');
+
+// Ajoutez un gestionnaire d'événements pour la date de début
+var debutInput = $('#debut');
+var finInput = $('#fin');
+
+// Fonction pour mettre à jour la date minimale pour le champ de date de fin
+function updateMinDate() {
+  // Obtenez la date de début sélectionnée
+  var debutValue = debutInput.val();
+
+  // Vérifiez si la date de début est définie
+  if (debutValue) {
+    // Convertissez la date de début en objet Date
+    var dateDebut = new Date(debutValue);
+
+    // Ajoutez un jour à la date de début
+    dateDebut.setDate(dateDebut.getDate() + 1);
+
+    // Formattez la date pour l'attribut min
+    var minDateFin = formatDate(dateDebut);
+
+    // Mettez à jour la date minimale pour le champ de date de fin
+    finInput.attr('min', minDateFin);
+  }
+}
+
+// Attachez l'événement change au champ de date de début
+debutInput.on('change', updateMinDate);
+
+updateMinDate();
 
 
-// /*Calcul prix d'un logement */
-//
-// // function calculerNombreJours() {
-// //   var debutInput = $('#debut').val();
-// //   var finInput = $('#fin').val();
-// //
-// //   // Vérifier si les champs de date de début et de fin sont vides
-// //   if (!debutInput || !finInput) {
-// //
-// //     var elementPrix = document.getElementById('prix');
-// //
-// //     // Afficher le message spécial
-// //     elementPrix.innerHTML = 'Sélectionner une date pour afficher le prix';
-// //     return; // Sortir de la fonction si les dates sont vides
-// //   }
-// //
-// //   var dateDebut = new Date(debutInput);
-// //   var dateFin = new Date(finInput);
-// //
-// //   // Calcul du nombre de millisecondes entre les deux dates
-// //   var differenceEnMillisecondes = dateFin - dateDebut;
-// //
-// //   // Calcul du nombre de jours
-// //   var differenceEnJours = Math.floor(differenceEnMillisecondes / (1000 * 60 * 60 * 24));
-// //
-// //   var prixNuit = document.getElementById('prix').getAttribute('data-prix');
-// //   var elementPrix = document.getElementById('prix');
-// //   var nombreNuit = document.getElementById('nombreNuit');
-// //
-// //   // Mettez à jour la valeur du prix dans le HTML
-// //   elementPrix.innerHTML = 'Prix : ' + differenceEnJours * prixNuit + ' €';
-// //   nombreNuit.innerHTML = differenceEnJours;
-// //
-// // }
-// //
-// // // Attachez l'événement onchange aux champs de date
-// // $('#debut, #fin').change(calculerNombreJours);
-// //
-// // // Appel initial pour afficher le nombre de jours si les dates sont déjà remplies
-// // calculerNombreJours();
+// Attachez l'événement change au champ de date de début
+debutInput.on('change', updateMinDate);
 
+/*finInput.on('change', function() {
+      // Mettez à jour la date maximale pour la date de début en fonction de la date de fin sélectionnée
+      debutInput.attr('max', finInput.val());
+    });*/
+
+// Fonction pour formater la date au format "YYYY-MM-DD"
+function formatDate(date) {
+  var year = date.getFullYear();
+  var month = ('0' + (date.getMonth() + 1)).slice(-2);
+  var day = ('0' + date.getDate()).slice(-2);
+  return year + '-' + month + '-' + day;
+}
+
+
+$('.coeur').click(function (event) {
+  // Empêcher la propagation de l'événement de clic vers les parents
+  event.preventDefault();
+
+  // Ajouter ici le code pour basculer la classe "rouge" sur la div .coeur
+  $(this).toggleClass('rouge');
+});
 
 /*Carrousel logement */
 
